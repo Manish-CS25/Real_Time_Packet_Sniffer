@@ -10,3 +10,4 @@ void log_packet_info(const char *info) {
     fprintf(logfile, "%s", info);
     fclose(logfile);
 }
+

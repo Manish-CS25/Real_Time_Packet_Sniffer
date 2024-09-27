@@ -9,11 +9,17 @@
 #include <linux/if_ether.h>
 #include <unistd.h>
 
-#define BUFFER_SIZE 65536
+#define BUFFER_SIZE 2048
+static unsigned char buffer[BUFFER_SIZE];  // Static buffer for reuse
+
 
 void start_packet_sniffer() {
     int raw_socket;
     unsigned char *buffer = (unsigned char *)malloc(BUFFER_SIZE);
+    if (buffer == NULL) {
+        perror("Failed to allocate buffer");
+        exit(1);
+    }
 
     // Create the raw socket
     raw_socket = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
